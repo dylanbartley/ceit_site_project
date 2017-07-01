@@ -1,0 +1,17 @@
+def timeslots as array of text
+def days as array of text
+def batch_container_template as string
+
+* initialize
+pull batch container template into var
+pull batches as array of object {id,status,summary,couseid,coursename,availseats,maxseats,start_date}
+
+* build grid
+def i = 0
+loop timeslots
+  write slot info
+  loop days
+    get batches with timeslot = i
+      def batch_container_size, based on batches count
+      loop batches
+        create batch container from template
