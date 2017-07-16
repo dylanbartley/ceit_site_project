@@ -130,3 +130,8 @@ th.slot-info {
 .modal-footer {
     text-align: center;
 }
+
+/* register pop up */
+#registerForm .modal-body {
+    background-color: #DCE8F2;
+}
