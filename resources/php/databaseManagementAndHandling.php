@@ -1,26 +1,35 @@
 <?php
 
 /* 
- * Will begin to connect to the database and do most of the heavy liftinh
- * 
+ * Responsible for the:
+ * >>connecting
  * >>insert
+ * >>management of data in the database
  */
-
-
-//include the php file with the information for the database
-include 'coreSystemSettings.php';
-
-//generic messages to be logged or displayed to the user
-include 'messages.php';
-
 
 
 /*
- * returning all the content from the form submitted by the user
+ * INCLUDES FROM OTHER PHP FILES
+ * CODE BLOCK #100
  */
+include 'coreSystemSettings.php'; //db information
+include 'messages.php'; //messages and notices
+
+//END OF CODE BLOCK #100
+
+
+/*
+ *TESTING DATABASE VIA HTML FORMS 
+ * #111 
+ */
+
+
+ // returning all the content from the form submitted by the user
+ //via the submission form
 $registeredName = $_POST['register-Name'];
 $registeredEmail = $_POST['register-Email'];
 
+//END OF CB #111
 
 
 
@@ -28,38 +37,44 @@ $registeredEmail = $_POST['register-Email'];
 $connectToDatabase = mysqli_connect($dataBaseServerName,$dataBaseUserName,$dataBasePassword);
 
 
-
+//checks to see if connection is possible
+/*
+ * TODO: REMOVE TEXT BASED MESSAGE LATR
+ * #1112
+ */
 if(!$connectToDatabase){
     die(databaseCantConnect());
 }
  else {
-databaseConnected();    
+databaseConnectedNotify();    
 }
+//END OF CB #1112
+
+
 
 $currentYear = getServerTime();
-
-
 echo "Current Year: ".$currentYear;
 
 
 
-
-
-
-$script = shellScriptInsertRegisteredStudents(getRegisteredName(), getRegisteredEmail(),$tableRegisteredStudents);
-mysqli_select_db($connectToDatabase, $dataBaseName);
-mysqli_query($connectToDatabase,$script);
+$scriptInsert = shellScriptInsertRegisteredStudents(getRegisteredName(), getRegisteredEmail(),getTableRegisteredStudentsName());
+mysqli_select_db($connectToDatabase, getDataBaseName());
+mysqli_query($connectToDatabase,$scriptInsert);
 mysqli_close($connectToDatabase);
 
 
 //displayActiveBaches($currentYear);
+
+
 /**************************************************************************************************
- * 
- *      DEFINING OF THE METHOD BELOW
+ *                                                                                                *
+ *      FUNCTIONS ARE DEFINED BELOW                                                                *
  **************************************************************************************************/
 
-//gets the current time on the server
-//will return the result as we process it
+/*gets the current time on the server
+will return the result to be processed
+to find the batches to display at the FE */
+
 function getServerTime()
 {
 $dateStructure = '%Y ';
@@ -80,11 +95,8 @@ $systemCurrentTime = strftime($dateStructure);
 function shellScriptInsertRegisteredStudents($sNames,$sEmailAddress,$dbTable){
     //includes it in the scope so that I can gain access to it
     //in the functioin
-    global $colRegisteredStudents_se;
-    global $colRegisteredStudents_sn;
-    
-    //$colRegisteredStudents_sn=$colRegisteredStudents_sn;
-    $insertScript = "insert into ".$dbTable." (". $colRegisteredStudents_sn.",".$colRegisteredStudents_se.") "
+   
+    $insertScript = "insert into ".$dbTable." (". getRegisteredStudentsColSName().",".getRegisteredStudentColSEmail().") "
             . "values ('".$sNames."','".$sEmailAddress."')";
     return $insertScript;
 }//end of function that returns the base scrpt of an sql statement
@@ -103,14 +115,13 @@ function getRegisteredEmail(){
     return $registeredEmail;}
     
    //END OF CODE BLOCK #:66 
-    
-    
-    
+     
     
     
     /*
      * 
      * CODE BLOCK #:67
+     * TODO:WIP
      */
     function displayActiveBaches($yr)
     {
@@ -125,12 +136,8 @@ function getRegisteredEmail(){
         
         $displayScript = "select * from ".getTableCourseBatchesName()." where schoolYear >=".$yr;
         
-       // echo $displayScript;
-       // echo $dataBaseName;
-       
-     
-     
-       mysqli_select_db($connectToDatabase, $dataBaseName);
+    
+        mysqli_select_db($connectToDatabase, $dataBaseName);
         
         $queryResult = mysqli_query($connectToDatabase,$displayScript);
         
@@ -153,7 +160,4 @@ function getRegisteredEmail(){
              
              
     }
-    
-    
-    
     //END OF CODE BLOCK #67
