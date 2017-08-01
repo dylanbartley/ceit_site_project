@@ -78,8 +78,10 @@ $systemCurrentTime = strftime($dateStructure);
  */
 
 function shellScriptInsertRegisteredStudents($sNames,$sEmailAddress,$dbTable){
-    include 'coreSystemSettings.php'; //includes it in the scope so that I can gain access to it
+    //includes it in the scope so that I can gain access to it
     //in the functioin
+    global $colRegisteredStudents_se;
+    global $colRegisteredStudents_sn;
     
     //$colRegisteredStudents_sn=$colRegisteredStudents_sn;
     $insertScript = "insert into ".$dbTable." (". $colRegisteredStudents_sn.",".$colRegisteredStudents_se.") "
