@@ -9,8 +9,8 @@
 
 $dataBaseServerName = "localhost";
 $serverPortNumber=3360;
-$dataBaseUserName="root";
-$dataBasePassword="";
+$dataBaseUserName="internetUser";
+$dataBasePassword="331A11AC61113EDDC283C5BEC8996";
 $dataBaseName = "ceitdominicaregister_dm_db";
 
 
@@ -29,3 +29,8 @@ $tableBatchSchedule="batchschedule";
            $colRegisteredStudents_sn ="studentName";
            $colRegisteredStudents_se="studentEmail";
 
+
+           
+           
+           function getTableCourseBatchesName(){ global $tableCourseBatches;
+           return $tableCourseBatches;}

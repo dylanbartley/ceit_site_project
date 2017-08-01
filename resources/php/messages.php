@@ -19,5 +19,5 @@ function databaseConnected()
     echo "Database connection successful<br>";
 }
 
-
+function getWebsiteName(){echo "Centre of Excellence in Information Technology";}
 

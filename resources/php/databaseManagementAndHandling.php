@@ -38,12 +38,11 @@ databaseConnected();
 
 $currentYear = getServerTime();
 
+
 echo "Current Year: ".$currentYear;
 
 
 
-//$name="Venus Tavernier";
-//$email="lastspartan009@gmail.com";
 
 
 
@@ -53,6 +52,7 @@ mysqli_query($connectToDatabase,$script);
 mysqli_close($connectToDatabase);
 
 
+//displayActiveBaches($currentYear);
 /**************************************************************************************************
  * 
  *      DEFINING OF THE METHOD BELOW
@@ -107,11 +107,52 @@ function getRegisteredEmail(){
     
     
     
+    
     /*
-     * functions used to validate the input from the form
+     * 
      * CODE BLOCK #:67
      */
-    
+    function displayActiveBaches($yr)
+    {
+        //global $connectToDatabase;
+        global $dataBaseName;
+        global $dataBaseServerName;
+        global $dataBasePassword;
+        global $dataBaseUserName;
+        
+        $connectToDatabase = mysqli_connect($dataBaseServerName,$dataBaseUserName,$dataBasePassword);
+
+        
+        $displayScript = "select * from ".getTableCourseBatchesName()." where schoolYear >=".$yr;
+        
+       // echo $displayScript;
+       // echo $dataBaseName;
+       
+     
+     
+       mysqli_select_db($connectToDatabase, $dataBaseName);
+        
+        $queryResult = mysqli_query($connectToDatabase,$displayScript);
+        
+        
+        
+               if(mysqli_num_rows($queryResult)>0)
+                {
+                    //displaying the result
+                    while($resultRow = mysqli_fetch_assoc($queryResult))
+                    {
+                        
+                        echo $resultRow['coursesFK']." ".$resultRow['coursesStatus']." ".$resultRow['lecturerFK']." ".$resultRow['schoolYear']." ".$resultRow['startDate']." ".$resultRow['endDate']." ".$resultRow['availableCourseSeats']." ".$resultRow['maxSeats']." "."<br>";
+                    }
+                    
+                }//end of if statement
+                else{
+                echo "0 results";}
+                
+                mysqli_close($connectToDatabase);
+             
+             
+    }
     
     
     
