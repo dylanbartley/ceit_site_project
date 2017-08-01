@@ -81,6 +81,10 @@
                 </div>
             </div>
         </div>
+        
+        
+        
+        
         <div id="registerForm" class="modal fade" role="dialog">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -88,28 +92,37 @@
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                         <h4 class="modal-title">Registration</h4>
                     </div>
+                   
+                    <form action="./resources/php/subs.php" method="POST">
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="name">Full name:</label>
-                            <input type="text" class="form-control" id="register-name">
+                            <input type="text" class="form-control" id="register-name" name="register-Name">
                         </div>
                         <div class="form-group">
                             <label for="email">Email address:</label>
-                            <input type="email" class="form-control" id="register-email">
+                            <input type="email" class="form-control" id="register-email" name="register-Email">
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button id="btn-complete" type="button" class="btn btn-lg btn-danger">SUBMIT</button>
+                        <button id="btn-complete" type="submit" class="btn btn-lg btn-danger">SUBMIT</button>
+                       
                     </div>
+                    </form>
                 </div>
             </div>
         </div>
+        
+        
+        
+        
         <div id="resultDialog" class="modal fade" role="dialog">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-body">
                         <h3>RESULT OF SUBMISSION</h3>
                     </div>
+                  
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">OK</button>
                     </div>
