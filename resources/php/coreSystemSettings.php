@@ -35,6 +35,7 @@ $tableSubjectCourse="subjectcourse";
            $colRegisteredStudents_sn ="studentName";
            $colRegisteredStudents_se="studentEmail";
 
+           
            function getRegisteredStudentsColSName()
            {
                global $colRegisteredStudents_sn;
@@ -52,26 +53,49 @@ $tableSubjectCourse="subjectcourse";
             * to be used as means of access 
             */
            function getTableCourseBatchesName()
-                    { 
+            { 
                global $tableCourseBatches;
            return $tableCourseBatches;
-                    }
+            }
                     
                     
                     /*
             * returns the name of the table registeredstudents
             * to be used as means of access 
             */
-                    function getTableRegisteredStudentsName()
-                    {
-                        global $tableRegisteredStudents;
-                        return $tableRegisteredStudents;
-                    }
+            function getTableRegisteredStudentsName()
+            {
+           global $tableRegisteredStudents;
+           return $tableRegisteredStudents;
+            }
                     
                
                     
-    function getDataBaseName()
-    {
-        global $dataBaseName;
-        return $dataBaseName;
-    }
+            function getDataBaseName()
+             {
+              global $dataBaseName;
+                return $dataBaseName;
+             }
+    
+    
+           function getDataBaseServerName()
+           {
+               global $dataBaseServerName;
+               return $dataBaseServerName;
+           }
+           
+           /*
+            * TODO: MAKE FUNCTIONS PRIVATE
+            * CB #911
+            */
+           function getUserName(){
+               global $dataBaseUserName;
+               return $dataBaseUserName;
+           }
+           
+           function getUserPassword()
+           {
+               global $dataBasePassword;
+               return $dataBasePassword;
+           }
+           //END OF CODE BLOCK #911

@@ -34,7 +34,7 @@ $registeredEmail = $_POST['register-Email'];
 
 
 //attempts to connect to the database server
-$connectToDatabase = mysqli_connect($dataBaseServerName,$dataBaseUserName,$dataBasePassword);
+$connectToDatabase = mysqli_connect(getDataBaseServerName(),getUserName(),getUserPassword());
 
 
 //checks to see if connection is possible
@@ -125,19 +125,15 @@ function getRegisteredEmail(){
      */
     function displayActiveBaches($yr)
     {
-        //global $connectToDatabase;
-        global $dataBaseName;
-        global $dataBaseServerName;
-        global $dataBasePassword;
-        global $dataBaseUserName;
+       
         
-        $connectToDatabase = mysqli_connect($dataBaseServerName,$dataBaseUserName,$dataBasePassword);
+        $connectToDatabase = mysqli_connect(getDataBaseServerName(),getUserName(),getUserPassword());
 
         
         $displayScript = "select * from ".getTableCourseBatchesName()." where schoolYear >=".$yr;
         
     
-        mysqli_select_db($connectToDatabase, $dataBaseName);
+        mysqli_select_db($connectToDatabase, getDataBaseName());
         
         $queryResult = mysqli_query($connectToDatabase,$displayScript);
         
