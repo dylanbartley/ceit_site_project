@@ -36,6 +36,46 @@ $tableSubjectCourse="subjectcourse";
            $colRegisteredStudents_se="studentEmail";
 
            
+           
+           
+           
+           
+           
+           /*
+            * List of all the columns under the table named: coursebatches
+            * Code Block: #345
+            */
+           $courseBatchesId = "coursebatches.id";
+           $courseBatchesCourseStatus = "coursebatches.coursesStatus";
+           $courseBatchesLecturer="coursebatches.lecturerFK";
+           $courseBatcheSchoolYear ="coursebatches.schoolYear";
+           $courseBatcheStartDate = "coursebatches.startDate";
+           $courseBatchesEndDate = "coursebatches.endDate";
+           $courseBatchesAvailableSeats ="coursebatches.availableCourseSeats";
+           $courseBatchesMaxSeats ="coursebatches.maxSeats";
+           $courseBatchesCoursesFK = "coursebatches.coursesFK";
+           
+           //END OF CODE BLOCK #345
+          
+           
+           
+           /*
+            * List of all the columns under the table named: subjectcourse
+            * Code Block: #346
+            */
+           
+           $subjectCourseName = "subjectcourse.courseName";
+           $subjectCourseSummary = "subjectcourse.courseSummary";
+           $subjectCourseID ="subjectcourse.id";
+           //END OF CODE BLOCK #346
+           
+           
+           
+           /*
+            * FUNCTIONS USED TO RETURN THE INDIRECT VALUES
+            * ENCAPSULATION OF SOME SORTS
+            * #657
+            */
            function getRegisteredStudentsColSName()
            {
                global $colRegisteredStudents_sn;
@@ -47,6 +87,16 @@ $tableSubjectCourse="subjectcourse";
                global $colRegisteredStudents_se;
                return $colRegisteredStudents_se;
            }
+           
+           
+           
+           
+           /*
+            * CODE BLOCK FOR RETURNING THE STRING REP
+            * OF THE VARIOUS TABLES AND COLUMN NAMES
+            * 
+            * CODE BLOCK:#1145
+            */
            
            /*
             * returns the name of the table coursebatches
@@ -69,6 +119,90 @@ $tableSubjectCourse="subjectcourse";
            return $tableRegisteredStudents;
             }
                     
+            
+               function getTableSubjectCourse()
+               {
+                   global $tableSubjectCourse;
+                   return $tableSubjectCourse;
+               }
+               
+               function getTableCourseBatchesId()
+               {
+                   global $courseBatchesId;
+                   return $courseBatchesId;
+               }
+               
+               function getTableCourseBatchesStatus()
+               {
+                   global $courseBatchesCourseStatus;
+                   return $courseBatchesCourseStatus;
+               }
+               
+               function getTableCourseBatchesLect()
+               {
+                   global $courseBatchesLecturer;
+                   return $courseBatchesLecturer;
+               }
+               
+               function getTableCourseBatchesSchYr()
+               {
+                   global $courseBatcheSchoolYear;
+                   return $courseBatcheSchoolYear;
+               }
+               
+                function getTableCourseBatchesStartDate()
+               {
+                   global $courseBatcheStartDate;
+                   return $courseBatcheStartDate;
+               }
+               
+               function getTableCourseBatchesEndDate()
+               {
+                   global $courseBatchesEndDate;
+                   return $courseBatchesEndDate;
+               }
+               
+               function getTableCourseBatchesAvailSeats()
+               {
+                   global $courseBatchesAvailableSeats;
+                   return $courseBatchesAvailableSeats;
+               }
+               
+               //per course
+               function getTableCourseBatchesMaxSeats()
+               {
+                   global $courseBatchesMaxSeats;
+                   return $courseBatchesMaxSeats;
+               }
+               
+               function getTableSubjectCourseName()
+               {
+                   global $subjectCourseName;
+                   return $subjectCourseName;
+               }
+               
+               function getTableSubjectCourseSummary()
+               {
+                   global $subjectCourseSummary;
+                   return $subjectCourseSummary;
+                   
+               }
+               
+               function getTableCourseBatchesCoursesFK()
+               {
+                   global $courseBatchesCoursesFK;
+                   return $courseBatchesCoursesFK;
+               }
+               
+               function getTableSubjectCourseId()
+               {
+                   global $subjectCourseID;
+                   return $subjectCourseID;
+               }
+               //END OF CODE BLOCK #1145
+               
+               
+               
                
                     
             function getDataBaseName()
@@ -98,4 +232,20 @@ $tableSubjectCourse="subjectcourse";
                global $dataBasePassword;
                return $dataBasePassword;
            }
+           
+           /*
+            * function used to return the string template for the tables
+            * that will be joined together to return the result of active 
+            * available courses
+            */
+           function getActiveCoursesTemplateTable()
+           {
+               $tableTemplate =getTableCourseBatchesId().",". getTableCourseBatchesStatus().",". getTableSubjectCourseName().",". getTableSubjectCourseSummary().",".
+                       getTableCourseBatchesLect().",". getTableCourseBatchesSchYr().",". getTableCourseBatchesStartDate().",". getTableCourseBatchesEndDate().",".
+                       getTableCourseBatchesAvailSeats().",". getTableCourseBatchesMaxSeats()." from ".getTableCourseBatchesName()." join ". getTableSubjectCourse().
+                       " on ".getTableCourseBatchesCoursesFK()."=". getTableSubjectCourseId()." where ". getTableCourseBatchesSchYr()." >=";
+               return $tableTemplate;
+           }
            //END OF CODE BLOCK #911
+           
+           //END OF CODE BLOCK 647

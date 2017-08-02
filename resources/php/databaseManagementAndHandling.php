@@ -63,7 +63,7 @@ mysqli_query($connectToDatabase,$scriptInsert);
 mysqli_close($connectToDatabase);
 
 
-//displayActiveBaches($currentYear);
+displayActiveBaches($currentYear);
 
 
 /**************************************************************************************************
@@ -124,20 +124,18 @@ function getRegisteredEmail(){
      * TODO:WIP
      */
     function displayActiveBaches($yr)
-    {
-       
-        
+    {   
         $connectToDatabase = mysqli_connect(getDataBaseServerName(),getUserName(),getUserPassword());
 
         
-        $displayScript = "select * from ".getTableCourseBatchesName()." where schoolYear >=".$yr;
-        
+       // $displayScript = "select * from ".getTableCourseBatchesName()." where schoolYear >=".$yr;
+       $displayScript = "select ".getActiveCoursesTemplateTable().$yr; 
     
         mysqli_select_db($connectToDatabase, getDataBaseName());
         
         $queryResult = mysqli_query($connectToDatabase,$displayScript);
-        
-        
+           
+        echo "<table border=4>";
         
                if(mysqli_num_rows($queryResult)>0)
                 {
@@ -145,13 +143,24 @@ function getRegisteredEmail(){
                     while($resultRow = mysqli_fetch_assoc($queryResult))
                     {
                         
-                        echo $resultRow['coursesFK']." ".$resultRow['coursesStatus']." ".$resultRow['lecturerFK']." ".$resultRow['schoolYear']." ".$resultRow['startDate']." ".$resultRow['endDate']." ".$resultRow['availableCourseSeats']." ".$resultRow['maxSeats']." "."<br>";
+                    echo "<tr><td>".$resultRow['id']."|".
+                            $resultRow['coursesStatus']."|".
+                            $resultRow['courseName']."|".
+                            $resultRow['courseSummary']."|".
+                            $resultRow['lecturerFK']."|".
+                            $resultRow['schoolYear']."|".
+                            $resultRow['startDate']."|".
+                            $resultRow['endDate']."|".
+                            $resultRow['availableCourseSeats']."|".
+                            $resultRow['maxSeats']."<br>"."</tr></td>";
+                        
                     }
                     
                 }//end of if statement
                 else{
                 echo "0 results";}
                 
+                echo "</table>";
                 mysqli_close($connectToDatabase);
              
              
