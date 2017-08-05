@@ -1,0 +1,52 @@
+1. create database ceitdominicaregister_dm_db;
+(create the database)
+
+2.create table if not exists  ceiteachers
+(id smallint primary key not null AUTO_INCREMENT comment 'generic id used for the unique identification of a teacher',
+Lecturer varchar(100) not null comment 'first Name and last name  of the teacher',
+ teacherGender enum('Male','Female','Unknown') default 'Unknown' comment 'gender of each teacher',
+tEmail varchar(100) UNIQUE default '@domain.com' comment 'email for each teacher which needs to be unique on an individual level') engine='Innodb';
+(creat table ceiteachers)
+
+3. create table if not exists subjectcourses
+(id smallint primary key not null AUTO_INCREMENT comment 'unique row id',
+courseID varchar(6) unique comment 'internal college course id thingy not important',
+ courseName varchar(100) not null comment 'name of the course and is required',
+ courseSummary text comment 'optional information about what the course is about') engine='Innodb';
+(create table subjectcourses)
+
+4.create table if not exists batchschedule
+(
+batchFK smallint comment 'foreign key used to link to the table coursebatches id',
+    timeslot tinyint default 0
+) engine='Innodb';
+(created table batchschedule)
+
+5.create table if not exists registeredstudents
+(
+studentid smallint primary key not null AUTO_INCREMENT comment 'unique id to represent the student record',
+    studentName varchar(100) not null comment 'name of the student that had a desire to joing the course contains both the first and last name',
+    studentEmail varchar(100) not null UNIQUE comment 'contact email for the student unique'
+) engine='Innodb';
+(batch schdeule)
+
+6.create table if not exists studentcoursebatches
+(
+batchesFK smallint comment 'foreign key used to link to the table coursebatches under the col id',
+  studentFK smallint comment 'foreign key used to link to the table registeredstudents to the col student',
+    submitDate timestamp,
+    seated bit comment 'true or false if this particular student was succesful in getting a seat'
+);
+
+
+7.create table if not exists coursebatches
+(id smallint primary key not null AUTO_INCREMENT comment 'unique primary key used to identify a course batch',
+ coursesFK smallint not null comment 'foreign key used to link the subject records from the table subjectcourses in col id',
+ courseStatus enum ('Pending','On-Going','Closed','Cancelled') default 'Pending' comment 'used to define the status if a course',
+ lecturerFK varchar(100) not null comment 'foreign key used to link to the table called ceiteachers for teacher FN and LN',
+ schoolYr smallint unsigned default 2000 comment 'school academic yr',
+ startDate date,
+ endDate date,
+ availableSeats tinyint unsigned default 0 comment 'used to display to the students ',
+ maxSeats tinyint unsigned default 30 comment 'max seats per batch'
+    ) engine='Innodb';

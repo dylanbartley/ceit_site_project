@@ -1,251 +1,112 @@
 <?php
 
-/* 
- * Date: July 31 2016
+/*
+ * DATE MODIFIED: AUGUST 4 2017
+ * TIME: 11:46 PM
  * 
- * Important config information 
- * 
+ * FILE USED TO STORE THE PRIMARY AND CRITICAL INFORMATION TO BE USED BY THE SERVER
  */
 
-$dataBaseServerName = "localhost";
-$serverPortNumber=3360;
-$dataBaseName = "ceitdominicaregister_dm_db";
 
 
+$databaseName="ceitdominicaregister_dm_db";
+$Server ="localhost";
+$ServerPortNumber =0000;
 
-/*USER CREDENTIALS CODE BACK #55*/
-$dataBaseUserName="internetUser";
-$dataBasePassword="331A11AC61113EDDC283C5BEC8996";
-/*END OF CODE BLOCK #55*/
+/*
+ * methods used to return the database name and server information
+ * CODE BLOCK #10
+ */
+function getDatabaseRef(){
+    global $databaseName;
+    return $databaseName;
+}
 
+function getServerAddress()
+{
+    global $Server;
+    return $Server;
+}
 
-//names of the tables in db 
-//BLOCK #57
-$tableBatchSchedule="batchschedule";
-$tableRegisteredStudents = "registeredstudents";
-$tableStudentsCourseBatches ="studentCourseBatches";
-$tableCourseBatches = "coursebatches";
-$tableCeiTeachers="ceiteachers";
-$tableSubjectCourse="subjectcourse";
-//END OF BLOCK #57
+function getServerGate()
+{
+    global $ServerPortNumber;
+    return $ServerPortNumber;
+}
+//END OF CODE BLOCK #10
 
+/*
+ * user name and passwords for the users
+ * 
+ * CODE BLOCK #17
+ */
 
-//names of all the col of each table for ease of management 
-          // and updates
-           $colRegisteredStudents_sn ="studentName";
-           $colRegisteredStudents_se="studentEmail";
+//******account for teachers and sub users***********************
+$databaseSubAdminUserName = "ceitdbUser";
+$databaseSubAdminPassword = "4E5F9888F0BB1EC597E58BC341053660F";
+//****************************************************************
+//********account for users on the front end**********************
+$databaseDailyUserName = "internetUser";
+$databaseDailyUserPassword = "331A11AC61113EDDC283C5BEC8996";
+//****************************************************************
 
-           
-           
-           
-           
-           
-           
-           /*
-            * List of all the columns under the table named: coursebatches
-            * Code Block: #345
-            */
-           $courseBatchesId = "coursebatches.id";
-           $courseBatchesCourseStatus = "coursebatches.coursesStatus";
-           $courseBatchesLecturer="coursebatches.lecturerFK";
-           $courseBatcheSchoolYear ="coursebatches.schoolYear";
-           $courseBatcheStartDate = "coursebatches.startDate";
-           $courseBatchesEndDate = "coursebatches.endDate";
-           $courseBatchesAvailableSeats ="coursebatches.availableCourseSeats";
-           $courseBatchesMaxSeats ="coursebatches.maxSeats";
-           $courseBatchesCoursesFK = "coursebatches.coursesFK";
-           
-           //END OF CODE BLOCK #345
-          
-           
-           
-           /*
-            * List of all the columns under the table named: subjectcourse
-            * Code Block: #346
-            */
-           
-           $subjectCourseName = "subjectcourse.courseName";
-           $subjectCourseSummary = "subjectcourse.courseSummary";
-           $subjectCourseID ="subjectcourse.id";
-           //END OF CODE BLOCK #346
-           
-           
-           
-           /*
-            * FUNCTIONS USED TO RETURN THE INDIRECT VALUES
-            * ENCAPSULATION OF SOME SORTS
-            * #657
-            */
-           function getRegisteredStudentsColSName()
-           {
-               global $colRegisteredStudents_sn;
-           return $colRegisteredStudents_sn;    
-           }
+/*
+ * set and get methods for accessing the userames and their passwords
+ * CODE BLOCK # 18
+ * 
+ */
+function getSubAdminUserName()
+{
+    global $databaseSubAdminUserName;
+    return $databaseSubAdminUserName;
+}
 
-           function getRegisteredStudentColSEmail()
-           {
-               global $colRegisteredStudents_se;
-               return $colRegisteredStudents_se;
-           }
-           
-           
-           
-           
-           /*
-            * CODE BLOCK FOR RETURNING THE STRING REP
-            * OF THE VARIOUS TABLES AND COLUMN NAMES
-            * 
-            * CODE BLOCK:#1145
-            */
-           
-           /*
-            * returns the name of the table coursebatches
-            * to be used as means of access 
-            */
-           function getTableCourseBatchesName()
-            { 
-               global $tableCourseBatches;
-           return $tableCourseBatches;
-            }
-                    
-                    
-                    /*
-            * returns the name of the table registeredstudents
-            * to be used as means of access 
-            */
-            function getTableRegisteredStudentsName()
-            {
-           global $tableRegisteredStudents;
-           return $tableRegisteredStudents;
-            }
-                    
-            
-               function getTableSubjectCourse()
-               {
-                   global $tableSubjectCourse;
-                   return $tableSubjectCourse;
-               }
-               
-               function getTableCourseBatchesId()
-               {
-                   global $courseBatchesId;
-                   return $courseBatchesId;
-               }
-               
-               function getTableCourseBatchesStatus()
-               {
-                   global $courseBatchesCourseStatus;
-                   return $courseBatchesCourseStatus;
-               }
-               
-               function getTableCourseBatchesLect()
-               {
-                   global $courseBatchesLecturer;
-                   return $courseBatchesLecturer;
-               }
-               
-               function getTableCourseBatchesSchYr()
-               {
-                   global $courseBatcheSchoolYear;
-                   return $courseBatcheSchoolYear;
-               }
-               
-                function getTableCourseBatchesStartDate()
-               {
-                   global $courseBatcheStartDate;
-                   return $courseBatcheStartDate;
-               }
-               
-               function getTableCourseBatchesEndDate()
-               {
-                   global $courseBatchesEndDate;
-                   return $courseBatchesEndDate;
-               }
-               
-               function getTableCourseBatchesAvailSeats()
-               {
-                   global $courseBatchesAvailableSeats;
-                   return $courseBatchesAvailableSeats;
-               }
-               
-               //per course
-               function getTableCourseBatchesMaxSeats()
-               {
-                   global $courseBatchesMaxSeats;
-                   return $courseBatchesMaxSeats;
-               }
-               
-               function getTableSubjectCourseName()
-               {
-                   global $subjectCourseName;
-                   return $subjectCourseName;
-               }
-               
-               function getTableSubjectCourseSummary()
-               {
-                   global $subjectCourseSummary;
-                   return $subjectCourseSummary;
-                   
-               }
-               
-               function getTableCourseBatchesCoursesFK()
-               {
-                   global $courseBatchesCoursesFK;
-                   return $courseBatchesCoursesFK;
-               }
-               
-               function getTableSubjectCourseId()
-               {
-                   global $subjectCourseID;
-                   return $subjectCourseID;
-               }
-               //END OF CODE BLOCK #1145
-               
-               
-               
-               
-                    
-            function getDataBaseName()
-             {
-              global $dataBaseName;
-                return $dataBaseName;
-             }
+function getSubAdminPass()
+{
+    global $databaseSubAdminPassword;
+    return $databaseSubAdminPassword;
+}
+
+function getDailyDriverUN()
+{
+    global $databaseDailyUserName;
+    return $databaseDailyUserName;
     
-    
-           function getDataBaseServerName()
-           {
-               global $dataBaseServerName;
-               return $dataBaseServerName;
-           }
-           
-           /*
-            * TODO: MAKE FUNCTIONS PRIVATE
-            * CB #911
-            */
-           function getUserName(){
-               global $dataBaseUserName;
-               return $dataBaseUserName;
-           }
-           
-           function getUserPassword()
-           {
-               global $dataBasePassword;
-               return $dataBasePassword;
-           }
-           
-           /*
-            * function used to return the string template for the tables
-            * that will be joined together to return the result of active 
-            * available courses
-            */
-           function getActiveCoursesTemplateTable()
-           {
-               $tableTemplate =getTableCourseBatchesId().",". getTableCourseBatchesStatus().",". getTableSubjectCourseName().",". getTableSubjectCourseSummary().",".
-                       getTableCourseBatchesLect().",". getTableCourseBatchesSchYr().",". getTableCourseBatchesStartDate().",". getTableCourseBatchesEndDate().",".
-                       getTableCourseBatchesAvailSeats().",". getTableCourseBatchesMaxSeats()." from ".getTableCourseBatchesName()." join ". getTableSubjectCourse().
-                       " on ".getTableCourseBatchesCoursesFK()."=". getTableSubjectCourseId()." where ". getTableCourseBatchesSchYr()." >=";
-               return $tableTemplate;
-           }
-           //END OF CODE BLOCK #911
-           
-           //END OF CODE BLOCK 647
+}
+
+function getDailyDriverUP()
+{
+    global $databaseDailyUserPassword;
+    return $databaseDailyUserPassword;
+}
+
+//END OF CODE BLOCK 18
+
+//END OF CODE BLOCK #17
+
+
+/*
+ * methods used to return the procedure calls to communicate 
+ * with the database
+ * CODE BLOCK 100
+ */
+
+//function used to call the server to add a new record
+//into the subjects table
+function insertNewCourse($CCode,$subjectName,$summary)
+{
+    $scriptTemplate = "CALL insertNewCourse('".$CCode."','".$subjectName."','".$summary."')";
+    return $scriptTemplate;
+}
+//END OF CODE BLOCK 100
+
+
+//gets the current year of the server
+//this will be used as a pointer as to what information it 
+//will display at any time
+function  findServerYearDate()
+{
+    $dateStructure = '%Y ';
+$currentYear = strftime($dateStructure);
+    return $currentYear;
+}
