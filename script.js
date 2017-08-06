@@ -196,7 +196,8 @@ function clickRegSubmit ( e ) {
     /* all is well. send info to server */
     sendRegistration({
         username : name,
-        useremail : email
+        useremail : email,
+        batchId : 0
     });
 
     console.groupEnd();
