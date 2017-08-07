@@ -93,10 +93,28 @@ function getDailyDriverUP()
 
 //function used to call the server to add a new record
 //into the subjects table
+//table name: subjectcourses
 function insertNewCourse($CCode,$subjectName,$summary)
 {
     $scriptTemplate = "CALL insertNewCourse('".$CCode."','".$subjectName."','".$summary."')";
     return $scriptTemplate;
+}
+
+
+//functin used to call the server to add a new registered student's information
+//table name: registeredstudents
+function insertNewRegisteredStudent($studentName,$studentEmail)
+{
+    $insertScriptTemplate ="CALL insertNewRegisteredStudent('".$studentName."','".$studentEmail."')";
+            return $insertScriptTemplate;
+}
+
+
+//function used to call the server to add a new teacher and their information
+function insertNewTeacher($teacherName,$gender,$teacherEmail)
+{
+    $insertTeacherScriptTemplate = "CALL insertNewTeacher('".$teacherName."','".$gender."','".$teacherEmail."')";
+    return $insertTeacherScriptTemplate;
 }
 //END OF CODE BLOCK 100
 
