@@ -21,6 +21,7 @@
             </ul>
         </div>
     </nav>
+
     <!-- MAIN CONTENT CONTAINER -->
     <div id="wrapper" class="container">
         <div id="grid">
@@ -28,6 +29,7 @@
             </div>
         </div>
     </div>
+
     <!-- TEMPLATES -->
     <div id="templates">
         <div id="grid-container-template">
@@ -40,6 +42,7 @@
                 </div>
             </div>
         </div>
+        
         <div id="batch-details-template">
             <h4>__batchname__<span class="batchdetail-id">#__batchid__</span></h4>
             <p>__coursesummary__</p>
@@ -65,6 +68,7 @@
             </div>
         </div>
     </div>
+
     <!-- BOOTSTRAP POPUP MODALS -->
     <div id="modal-cont">
         <div id="batchDetails" class="modal fade" role="dialog">
@@ -83,9 +87,6 @@
             </div>
         </div>
         
-        
-        
-        
         <div id="registerForm" class="modal fade" role="dialog">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -94,7 +95,6 @@
                         <h4 class="modal-title">Registration</h4>
                     </div>
                    
-                    <form action="./resources/php/subs.php" method="POST">
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="name">Full name:</label>
@@ -106,22 +106,16 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button id="btn-complete" type="submit"  class="btn btn-lg btn-danger">SUBMIT</button>
-                       
+                        <button id="btn-complete" type="button" class="btn btn-lg btn-danger">SUBMIT</button>
                     </div>
-                    </form>
                 </div>
             </div>
         </div>
-        
-        
-        
         
         <div id="resultDialog" class="modal fade" role="dialog">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-body">
-                        <h3>RESULT OF SUBMISSION</h3>
                     </div>
                   
                     <div class="modal-footer">

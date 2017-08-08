@@ -180,7 +180,7 @@ function clickRegSubmit ( e ) {
     console.debug("register email: %s", email);
 
     /* client side validation */
-    var regAlphaNum = /^(?=[A-Za-z0-9]+[A-Za-z])[A-Za-z0-9]{4,20}$/; //regex to verify valid name
+    var regAlphaNum = /^(?=[A-Za-z0-9 \.]+[A-Za-z])[A-Za-z0-9 \.]{4,20}$/; //regex to verify valid name
     var regEmail = /^[\w\.-]+@[\w\.-]+\.[a-z]{2,4}$/; // regex to verify valid email
 
     if (!regAlphaNum.test(name)) {
@@ -193,11 +193,13 @@ function clickRegSubmit ( e ) {
         return;
     }
 
+     var batchId = parseInt($('#btn-register').attr('data-target'));
+
     /* all is well. send info to server */
     sendRegistration({
         username : name,
         useremail : email,
-        batchId : 0
+        batch : batchId
     });
 
     console.groupEnd();
@@ -206,9 +208,24 @@ function clickRegSubmit ( e ) {
 /*** SERVER INTERACTION ***/
 /**************************/
 function sendRegistration ( regData ) {
-    //TODO: start processing dialog
-    //TODO: ajax post, show result
+    /* start progress bar */
+    $('#resultDialog .modal-body')
+    .html("<div class='progress'><div class='progress-bar'role='progressbar'aria-valuenow='100'aria-valuemin='0'aria-valuemax='100'style='width:100%'>processing...</div></div>");
+    
     /* hide form */
     $('#registerForm').modal("hide");
     $('#resultDialog').modal();
+
+    /* post registration */
+    $.post('/resources/php/subs.php', regData)
+    .done(function ( data) {
+        if (data.err) {
+             $('#resultDialog .modal-body').html("<h3>Registration Failed. <br/> Please Try Again</h3>");
+        } else {
+             $('#resultDialog .modal-body').html("<h3>Registration Successful</h3>");
+        }
+    })
+    .fail(function () {
+         $('#resultDialog .modal-body').html("<h3>Registration Failed. <br/> Please Try Again</h3>");
+    });
 }
