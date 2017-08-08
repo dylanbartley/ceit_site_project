@@ -1,22 +1,18 @@
 <?php
-
-/* 
- * Responsible for the:
- * >>connecting
- * >>insert
- * >>management of data in the database
- */
-
-
 /*
- * INCLUDES FROM OTHER PHP FILES
- * CODE BLOCK #100
+ * FILE NAME:
+ * 
+ * DESCRIPTION: FILE USED TO INSERT THE REGISTERED STUDENTS 
+ * INTO THE DATABASE
+ * 
+ * DATE MODIFIED:
  */
-include 'coreSystemSettings.php'; //db information
-include 'messages.php'; //messages and notices
+include 'coreSystemSettings.php';
+include 'messages.php';
 
-//END OF CODE BLOCK #100
 
+
+//echo insertNewCourse('111', 'Science', 'null');
 
 /*
  *TESTING DATABASE VIA HTML FORMS 
@@ -29,13 +25,13 @@ include 'messages.php'; //messages and notices
 $registeredName = $_POST['register-Name'];
 $registeredEmail = $_POST['register-Email'];
 
+//evaluateSubmittedInformation($registeredName,$registeredEmail);
 //END OF CB #111
 
 
-
-//attempts to connect to the database server
-$connectToDatabase = mysqli_connect(getDataBaseServerName(),getUserName(),getUserPassword());
-
+//PROPER EMAIL $connectToDatabase = mysqli_connect(getServerAddress(),getDailyDriverUN(),getDailyDriverUP() );
+$connectToDatabase =  mysqli_connect(getServerAddress(),"root","" );
+//echo getDailyDriverUN();
 
 //checks to see if connection is possible
 /*
@@ -51,118 +47,48 @@ databaseConnectedNotify();
 //END OF CB #1112
 
 
-
-$currentYear = getServerTime();
-echo "Current Year: ".$currentYear;
+echo findServerYearDate();
 
 
 
-$scriptInsert = shellScriptInsertRegisteredStudents(getRegisteredName(), getRegisteredEmail(),getTableRegisteredStudentsName());
-mysqli_select_db($connectToDatabase, getDataBaseName());
-mysqli_query($connectToDatabase,$scriptInsert);
+mysqli_select_db($connectToDatabase, getDatabaseRef());
+mysqli_query($connectToDatabase, insertNewRegisteredStudent(getSubmittedName(), getSubmittedEmail()) );
 mysqli_close($connectToDatabase);
+//function used to insert records into the database
+//of registered individuals
 
 
-displayActiveBaches($currentYear);
-
-
-/**************************************************************************************************
- *                                                                                                *
- *      FUNCTIONS ARE DEFINED BELOW                                                                *
- **************************************************************************************************/
-
-/*gets the current time on the server
-will return the result to be processed
-to find the batches to display at the FE */
-
-function getServerTime()
+/*
+ * function used to compare if the submitted result is empty
+ * and calls the functions to submit the accepted values
+ * 
+ * code block #1
+ */
+function evaluateSubmittedInformation($name,$email)
 {
-$dateStructure = '%Y ';
-$systemCurrentTime = strftime($dateStructure);
-    return $systemCurrentTime;
-}//end of function getServerTime
-
-
-
-
-//shell script to insert data into the students database
-//table: registeredstudents
-/*
- * it takes the students and email and inserts it into the body of the insert script
- * scalable and management capable
- */
-
-function shellScriptInsertRegisteredStudents($sNames,$sEmailAddress,$dbTable){
-    //includes it in the scope so that I can gain access to it
-    //in the functioin
-   
-    $insertScript = "insert into ".$dbTable." (". getRegisteredStudentsColSName().",".getRegisteredStudentColSEmail().") "
-            . "values ('".$sNames."','".$sEmailAddress."')";
-    return $insertScript;
-}//end of function that returns the base scrpt of an sql statement
-
-
-/*
- * functions used to return the values from the form
- * CODE BLOCK #:66
- */
-function getRegisteredName(){
-    global $registeredName;
-    return $registeredName;}
-    
-function getRegisteredEmail(){
-    global $registeredEmail;
-    return $registeredEmail;}
-    
-   //END OF CODE BLOCK #:66 
-     
-    
-    
-    /*
-     * 
-     * CODE BLOCK #:67
-     * TODO:WIP
-     */
-    function displayActiveBaches($yr)
-    {   
-        $connectToDatabase = mysqli_connect(getDataBaseServerName(),getUserName(),getUserPassword());
-
+    if(strlen($name)<=0){
         
-       // $displayScript = "select * from ".getTableCourseBatchesName()." where schoolYear >=".$yr;
-       $displayScript = "select ".getActiveCoursesTemplateTable().$yr; 
-    
-        mysqli_select_db($connectToDatabase, getDataBaseName());
-        
-        $queryResult = mysqli_query($connectToDatabase,$displayScript);
-           
-        echo "<table border=4>";
-        
-               if(mysqli_num_rows($queryResult)>0)
-                {
-                    //displaying the result
-                    while($resultRow = mysqli_fetch_assoc($queryResult))
-                    {
-                        
-                    echo "<tr><td>".$resultRow['id']."|".
-                            $resultRow['coursesStatus']."|".
-                            $resultRow['courseName']."|".
-                            $resultRow['courseSummary']."|".
-                            $resultRow['lecturerFK']."|".
-                            $resultRow['schoolYear']."|".
-                            $resultRow['startDate']."|".
-                            $resultRow['endDate']."|".
-                            $resultRow['availableCourseSeats']."|".
-                            $resultRow['maxSeats']."<br>"."</tr></td>";
-                        
-                    }
-                    
-                }//end of if statement
-                else{
-                echo "0 results";}
-                
-                echo "</table>";
-                mysqli_close($connectToDatabase);
-             
-             
+        die("Invalid Input Name from User");
     }
-    //END OF CODE BLOCK #67
+    
+    
+    if(strlen($email)<=0){
+      
+        die("Invalid Input Email from User");
+    }
+    
+}
+
+
+function getSubmittedName()
+{
+    global $registeredName;
+    return $registeredName;
+}
+
+function getSubmittedEmail()
+{
+    global $registeredEmail;
+    return $registeredEmail;
+}
+//end of code block #1
