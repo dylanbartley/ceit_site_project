@@ -1,21 +1,23 @@
 <?php
     $viewClosed = false;
-    if ($_GET["name"] != null) {
+    if ($_GET["closed"] != null) {
         $viewClosed = true;
     }
-    //TODO: get batches list
+    //TODO: get data
     $batches = array();
+    $courses = array();
+    $times = array();
 ?>
 
 <!-- TABLE -->
 <table class="grid">
     <tr>
-        <th>
+        <th colspan="3">
             <span>View Closed Batches</span><input type="checkbox" />
-            <button id="add-batch" class="btn btn-success">ADD BATCH</button>
+            <button id="add-batch" class="btn btn-success" data-target="#batchDialog" data-toggle="modal">ADD BATCH</button>
         </th>
     </tr>
-<?php foreach ($batchesbatch as $batch) { ?>
+<?php foreach ($batches as $batch) { ?>
     <tr class="a-batch-item" data-target="<?= $batch.id ?>">
         <td><?= $batch.name ?></td>
         <td># <?$batch.id ?></td>
@@ -32,7 +34,7 @@
 <?php } ?>
 </table>
 
-<div id="courseDialog" class="modal fade" role="dialog">
+<div id="batchDialog" class="modal fade" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -41,7 +43,22 @@
             </div>
 
             <div class="modal-body">
-                <h3>NEW BATCH</h3>
+                <div class="form-group">
+                    <label for="course-id">Course:</label>
+                    <select class="form-control" id="course-id">
+<?php foreach ($courses as $course) { ?>
+                        <option value="<?=$course.id ?>"><?=$course.name ?></option>
+<?php } ?>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="timeslot">Time:</label>
+                    <select class="form-control" id="timeslot">
+<?php foreach ($times as $time) { ?>
+                        <option value="<?=$time.id?>"><?=$time.text?></option>
+<?php } ?>
+                    </select>
+                </div>
             </div>
             
             <div class="modal-footer">

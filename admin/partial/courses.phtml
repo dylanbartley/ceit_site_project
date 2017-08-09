@@ -1,0 +1,18 @@
+<?php
+    //TODO: get data
+    $courses = array();
+?>
+
+<!-- TABLE -->
+<table class="grid">
+    <tr>
+        <th>
+            <button id="add-batch" class="btn btn-success" data-target="#batchDialog" data-toggle="modal">ADD BATCH</button>
+        </th>
+    </tr>
+<?php foreach ($courses as $course) { ?>
+    <tr class="a-batch-item" data-target="<?= $course.id ?>">
+        <td><?= $course.name ?></td>
+    </tr>
+<?php } ?>
+</table>
