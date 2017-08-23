@@ -31,6 +31,15 @@ var CACHE_NAME,CACHE_EMAIL;
 /* page load function */
 $(function () {
     console.groupCollapsed("Initializing");
+    $.get('/resources/php/connectToServer.php')
+    .done(function ( data ) {
+        batches = data[0];
+        batch_slots = data[1];
+    })
+    .fail(function () {
+        alert("FAILE TO RETRIEVE BATCH DATA");
+    });
+
     console.groupCollapsed("Retrieving Templates");
 
     BATCH_GRID_TEMPLATE = $('#grid-container-template').html();
